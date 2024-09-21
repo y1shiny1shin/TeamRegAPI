@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API功能演示</title>
+    <script>
+        async function registerUser() {
+            const data = {
+                userid: document.getElementById('registerUserId').value,
+                password: document.getElementById('registerPassword').value,
+                username: document.getElementById('registerUsername').value
+            };
+
+            const response = await fetch('/api/user/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('registerResult').innerText = JSON.stringify(result);
+        }
+
+        async function loginUser() {
+            const data = {
+                userid: document.getElementById('loginUserId').value,
+                password: document.getElementById('loginPassword').value
+            };
+
+            const response = await fetch('/api/user/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('loginResult').innerText = JSON.stringify(result);
+        }
+
+        async function updatePassword() {
+            const data = {
+                userid: document.getElementById('updateUserId').value,
+                password: document.getElementById('updateOldPassword').value,
+                newpassword: document.getElementById('updateNewPassword').value
+            };
+
+            const response = await fetch('/api/user/updatepwd', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('updateResult').innerText = JSON.stringify(result);
+        }
+
+        async function createTeam() {
+            const data = {
+                teamName: document.getElementById('createTeamName').value,
+                captainName: document.getElementById('createCaptainName').value,
+                captainId: document.getElementById('createCaptainId').value,
+                teamType: document.getElementById('createTeamType').value
+            };
+
+            const response = await fetch('/api/team/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('createResult').innerText = JSON.stringify(result);
+        }
+
+        async function joinTeam() {
+            const data = {
+                teamName: document.getElementById('joinTeamName').value,
+                userId: document.getElementById('joinUserId').value
+            };
+
+            const response = await fetch('/api/team/join', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('joinResult').innerText = JSON.stringify(result);
+        }
+
+        async function destroyTeam() {
+            const data = {
+                userId: document.getElementById('destroyUserId').value,
+                teamName: document.getElementById('destroyTeamName').value,
+                password: document.getElementById('destroyPassword').value
+            };
+
+            const response = await fetch('/api/team/destroy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('destroyResult').innerText = JSON.stringify(result);
+        }
+    </script>
+</head>
+<body>
+<h1>API功能演示</h1>
+
+<div>
+    <h2>用户注册</h2>
+    <input type="text" id="registerUserId" placeholder="User ID">
+    <input type="password" id="registerPassword" placeholder="Password">
+    <input type="text" id="registerUsername" placeholder="Username">
+    <button onclick="registerUser()">注册</button>
+    <pre id="registerResult"></pre>
+</div>
+
+<div>
+    <h2>用户登陆</h2>
+    <input type="text" id="loginUserId" placeholder="User ID">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="loginUser()">登陆</button>
+    <pre id="loginResult"></pre>
+</div>
+
+<div>
+    <h2>修改密码</h2>
+    <input type="text" id="updateUserId" placeholder="User ID">
+    <input type="password" id="updateOldPassword" placeholder="Old Password">
+    <input type="password" id="updateNewPassword" placeholder="New Password">
+    <button onclick="updatePassword()">修改密码</button>
+    <pre id="updateResult"></pre>
+</div>
+
+<div>
+    <h2>创建队伍</h2>
+    <input type="text" id="createTeamName" placeholder="Team Name">
+    <input type="text" id="createCaptainName" placeholder="Captain Name">
+    <input type="text" id="createCaptainId" placeholder="Captain ID">
+    <input type="text" id="createTeamType" placeholder="Team Type">
+    <button onclick="createTeam()">创建队伍</button>
+    <pre id="createResult"></pre>
+</div>
+
+<div>
+    <h2>加入队伍</h2>
+    <input type="text" id="joinTeamName" placeholder="Team Name">
+    <input type="text" id="joinUserId" placeholder="User ID">
+    <button onclick="joinTeam()">加入队伍</button>
+    <pre id="joinResult"></pre>
+</div>
+
+<div>
+    <h2>删除队伍</h2>
+    <input type="text" id="destroyUserId" placeholder="User ID">
+    <input type="text" id="destroyTeamName" placeholder="Team Name">
+    <input type="password" id="destroyPassword" placeholder="Password">
+    <button onclick="destroyTeam()">删除队伍</button>
+    <pre id="destroyResult"></pre>
+</div>
+</body>
+</html>

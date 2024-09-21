@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接口测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .form-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-top: 0;
+        }
+        .form-container input, .form-container button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>接口测试页面</h1>
+
+<!-- 用户登录 -->
+<div class="form-container">
+    <h2>用户登录</h2>
+    <form id="login-form">
+        <input type="text" id="login-userid" placeholder="用户ID" required>
+        <input type="password" id="login-password" placeholder="密码" required>
+        <button type="submit">登录</button>
+    </form>
+    <div id="login-response" class="response"></div>
+</div>
+
+<!-- 用户注册 -->
+<div class="form-container">
+    <h2>用户注册</h2>
+    <form id="register-form">
+        <input type="text" id="register-userid" placeholder="用户ID" required>
+        <input type="password" id="register-password" placeholder="密码" required>
+        <input type="text" id="register-username" placeholder="用户名" required>
+        <button type="submit">注册</button>
+    </form>
+    <div id="register-response" class="response"></div>
+</div>
+
+<!-- 用户修改密码 -->
+<div class="form-container">
+    <h2>用户修改密码</h2>
+    <form id="updatepwd-form">
+        <input type="text" id="updatepwd-userid" placeholder="用户ID" required>
+        <input type="password" id="updatepwd-password" placeholder="当前密码" required>
+        <input type="password" id="updatepwd-newpassword" placeholder="新密码" required>
+        <button type="submit">修改密码</button>
+    </form>
+    <div id="updatepwd-response" class="response"></div>
+</div>
+
+<!-- 用户信息 -->
+<div class="form-container">
+    <h2>获取用户信息</h2>
+    <button id="getuserinfo-btn">获取信息</button>
+    <div id="getuserinfo-response" class="response"></div>
+</div>
+
+<!-- 队伍接口 -->
+<!-- 加入平面设计专用赛道 -->
+<div class="form-container">
+    <h2>加入平面设计专用赛道</h2>
+    <form id="joinpmsjtrace-form">
+        <input type="text" id="joinpmsjtrace-userid" placeholder="用户ID" required>
+        <input type="password" id="joinpmsjtrace-password" placeholder="密码" required>
+        <input type="text" id="joinpmsjtrace-username" placeholder="用户名" required>
+        <button type="submit">加入赛道</button>
+    </form>
+    <div id="joinpmsjtrace-response" class="response"></div>
+</div>
+
+<!-- 踢出队员 -->
+<div class="form-container">
+    <h2>踢出队员</h2>
+    <form id="kickmember-form">
+        <input type="text" id="kickmember-teamName" placeholder="队伍名称" required>
+        <input type="text" id="kickmember-memberName" placeholder="队员姓名" required>
+        <input type="text" id="kickmember-memberId" placeholder="队员ID" required>
+        <button type="submit">踢出队员</button>
+    </form>
+    <div id="kickmember-response" class="response"></div>
+</div>
+
+<!-- 退出队伍 -->
+<div class="form-container">
+    <h2>退出队伍</h2>
+    <form id="quitteam-form">
+        <input type="text" id="quitteam-teamName" placeholder="队伍名称" required>
+        <button type="submit">退出队伍</button>
+    </form>
+    <div id="quitteam-response" class="response"></div>
+</div>
+
+<!-- 删除队伍 -->
+<div class="form-container">
+    <h2>删除队伍</h2>
+    <form id="destroy-form">
+        <input type="text" id="destroy-userId" placeholder="用户ID" required>
+        <input type="text" id="destroy-teamName" placeholder="队伍名称" required>
+        <input type="password" id="destroy-password" placeholder="密码" required>
+        <button type="submit">删除队伍</button>
+    </form>
+    <div id="destroy-response" class="response"></div>
+</div>
+
+<!-- 新建队伍 -->
+<div class="form-container">
+    <h2>新建队伍</h2>
+    <form id="create-form">
+        <input type="text" id="create-teamName" placeholder="队伍名称" required>
+        <input type="text" id="create-captainName" placeholder="队长姓名" required>
+        <input type="text" id="create-captainId" placeholder="队长ID" required>
+        <button type="submit">创建队伍</button>
+    </form>
+    <div id="create-response" class="response"></div>
+</div>
+
+<!-- 队伍加入赛道 -->
+<div class="form-container">
+    <h2>队伍加入赛道</h2>
+    <form id="groupjoin-form">
+        <input type="text" id="groupjoin-teamName" placeholder="队伍名称" required>
+        <input type="text" id="groupjoin-groupType" placeholder="赛道类型" required>
+        <input type="text" id="groupjoin-captainId" placeholder="队长ID" required>
+        <button type="submit">加入赛道</button>
+    </form>
+    <div id="groupjoin-response" class="response"></div>
+</div>
+
+<!-- 队伍加入 -->
+<div class="form-container">
+    <h2>队伍加入</h2>
+    <form id="join-form">
+        <input type="text" id="join-userId" placeholder="用户ID" required>
+        <input type="text" id="join-teamName" placeholder="队伍名称" required>
+        <button type="submit">加入队伍</button>
+    </form>
+    <div id="join-response" class="response"></div>
+</div>
+
+<!-- 退出赛道 -->
+<div class="form-container">
+    <h2>退出赛道</h2>
+    <form id="quitgroup-form">
+        <input type="text" id="quitgroup-groupName" placeholder="赛道名称" required>
+        <input type="text" id="quitgroup-teamName" placeholder="队伍名称" required>
+        <button type="submit">退出赛道</button>
+    </form>
+    <div id="quitgroup-response" class="response"></div>
+</div>
+
+<!-- 查询队伍信息 -->
+<div class="form-container">
+    <h2>查询队伍信息</h2>
+    <button id="select-btn">查询信息</button>
+    <div id="select-response" class="response"></div>
+</div>
+
+<!-- JavaScript -->
+<script src="app.js"></script>
+</body>
+</html>

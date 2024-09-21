@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队伍信息展示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>队伍信息表</h1>
+<button onclick="loadTeamData()">加载队伍数据</button>
+
+<div id="teamTableContainer"></div>
+
+<script>
+    // 加载队伍数据并生成表格
+    function loadTeamData() {
+        fetch('/api/team/select', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tableContainer = document.getElementById('teamTableContainer');
+                tableContainer.innerHTML = ''; // 清空之前的内容
+
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                // 表头
+                const headerRow = document.createElement('tr');
+                const headers = ['队伍名', '赛道1', '赛道2', '赛道3', '队员1', '队员2', '队员3', '队员ID1', '队员ID2', '队员ID3'];
+                headers.forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+
+                // 遍历每个队伍的数据并生成表格内容
+                for (const team in data) {
+                    if (data[team] && data[team][0]) {
+                        const teamData = data[team][0]; // 获取每个队伍的数据对象
+                        const dataRow = document.createElement('tr');
+                        const values = [
+                            teamData.teamName,
+                            teamData.groupType1 || '', // 赛道1
+                            teamData.groupType2 || '', // 赛道2
+                            teamData.groupType3 || '', // 赛道3
+                            teamData.memberName1 || '', // 队员1
+                            teamData.memberName2 || '', // 队员2
+                            teamData.memberName3 || '', // 队员3
+                            teamData.memberId1 || '', // 队员ID1
+                            teamData.memberId2 || '', // 队员ID2
+                            teamData.memberId3 || ''  // 队员ID3
+                        ];
+
+                        values.forEach(value => {
+                            const td = document.createElement('td');
+                            td.textContent = value || ''; // 如果字段为空，显示空白
+                            dataRow.appendChild(td);
+                        });
+                        tbody.appendChild(dataRow);
+                    }
+                }
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                tableContainer.appendChild(table); // 添加生成的表格到容器
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>

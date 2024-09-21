@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队伍管理系统</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>队伍管理系统</h1>
+    <nav>
+        <button id="joinTrackBtn">加入赛道</button>
+        <button id="createTeamBtn">创建队伍</button>
+        <button id="designTrackBtn">平面设计专用通道</button>
+    </nav>
+</header>
+
+<div class="container">
+    <!-- 模块一：加入赛道 -->
+    <section id="joinTrack" class="module hidden">
+        <h2>加入赛道</h2>
+        <form id="joinTrackForm">
+            <div class="form-group">
+                <label for="joinTrackTeamName">队伍名:</label>
+                <input type="text" id="joinTrackTeamName" name="teamName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="joinTrackGroupType">赛道名:</label>
+                <select id="joinTrackGroupType" name="groupType" required>
+                    <option value="计算机综合素质竞赛类">计算机综合素质竞赛类</option>
+                    <option value="微课与课件设计类">微课与课件设计类</option>
+                    <option value="程序应用设计类">程序应用设计类</option>
+                    <option value="数字媒体设计类">数字媒体设计类</option>
+                    <option value="算法程序设计类">算法程序设计类</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="joinTrackCaptainId">队长学号:</label>
+                <input type="text" id="joinTrackCaptainId" name="captainId" required>
+            </div>
+
+            <button type="submit">提交</button>
+        </form>
+    </section>
+
+    <!-- 模块二：创建队伍 -->
+    <section id="createTeam" class="module hidden">
+        <h2>创建队伍</h2>
+        <form id="createTeamForm">
+            <div class="form-group">
+                <label for="createTeamName">队伍名:</label>
+                <input type="text" id="createTeamName" name="teamName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="createCaptainName">队长姓名:</label>
+                <input type="text" id="createCaptainName" name="captainName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="createCaptainId">队长学号:</label>
+                <input type="text" id="createCaptainId" name="captainId" required>
+            </div>
+
+            <button type="submit">创建队伍</button>
+        </form>
+    </section>
+
+    <!-- 模块三：队伍信息 -->
+    <section id="teamInfo" class="module hidden">
+        <h2>队伍信息</h2>
+        <table id="teamTable">
+            <thead>
+            <tr>
+                <th>队伍名</th>
+                <th>队员一姓名</th>
+                <th>队员一学号</th>
+                <th>队员二姓名</th>
+                <th>队员二学号</th>
+                <th>队员三姓名</th>
+                <th>队员三学号</th>
+                <th>赛道一</th>
+                <th>赛道二</th>
+                <th>赛道三</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 动态数据 -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 模块四：平面设计赛道专用通道 -->
+    <section id="designTrack" class="module hidden">
+        <h2>平面设计赛道专用通道</h2>
+        <form id="designTrackForm">
+            <div class="form-group">
+                <label for="designTrackUserId">用户ID:</label>
+                <input type="text" id="designTrackUserId" name="userId" required>
+            </div>
+
+            <div class="form-group">
+                <label for="designTrackUsername">用户名:</label>
+                <input type="text" id="designTrackUsername" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="designTrackPassword">密码:</label>
+                <input type="password" id="designTrackPassword" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="designTrackConfirmPassword">确认密码:</label>
+                <input type="password" id="designTrackConfirmPassword" required>
+            </div>
+
+            <button type="submit" id="designTrackSubmit" disabled>提交</button>
+        </form>
+    </section>
+</div>
+
+<div class="fixed-table">
+    <table id="teamTableFixed">
+        <thead>
+        <tr>
+            <th>队伍名</th>
+            <th>队员一姓名</th>
+            <th>队员一学号</th>
+            <th>队员二姓名</th>
+            <th>队员二学号</th>
+            <th>队员三姓名</th>
+            <th>队员三学号</th>
+            <th>赛道一</th>
+            <th>赛道二</th>
+            <th>赛道三</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 动态数据 -->
+        </tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

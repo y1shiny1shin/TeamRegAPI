@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双击修改数据库</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<h1>双击修改数据库中的值</h1>
+
+<table id="dataTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td data-id="1" data-field="id">1</td>
+        <td data-id="1" data-field="name" ondblclick="editField(this)">Alice</td>
+        <td data-id="1" data-field="email" ondblclick="editField(this)">alice@example.com</td>
+    </tr>
+    <tr>
+        <td data-id="2" data-field="id">2</td>
+        <td data-id="2" data-field="name" ondblclick="editField(this)">Bob</td>
+        <td data-id="2" data-field="email" ondblclick="editField(this)">bob@example.com</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function editField(tdElement) {
+        const originalValue = tdElement.innerText;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = originalValue;
+
+        input.onblur = function () {
+            const newValue = input.value;
+            if (newValue !== originalValue) {
+                updateDatabase(tdElement.dataset.id, tdElement.dataset.field, newValue);
+                tdElement.innerText = newValue;
+            } else {
+                tdElement.innerText = originalValue;
+            }
+        };
+
+        input.onkeydown = function (event) {
+            if (event.key === 'Enter') {
+                input.blur();
+            }
+        };
+
+        tdElement.innerText = '';
+        tdElement.appendChild(input);
+        input.focus();
+    }
+
+    function updateDatabase(id, field, value) {
+        const data = {
+            id: id,
+            field: field,
+            value: value
+        };
+
+        fetch('/api/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log('更新成功:', result);
+            })
+            .catch(error => {
+                console.error('更新失败:', error);
+            });
+    }
+</script>
+</body>
+</html>

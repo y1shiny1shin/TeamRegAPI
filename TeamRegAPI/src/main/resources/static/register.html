@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册页面</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #7D8B8C;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: white;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .container img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: not-allowed; /* 默认不可点击 */
+        }
+
+        .btn.active {
+            background-color: #4CAF50;
+            cursor: pointer; /* 可点击 */
+        }
+
+        .btn.active:hover {
+            background-color: #45a049;
+        }
+
+        .btn.disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 使用上传的图片作为logo -->
+    <img src="/img/计协logo.png" alt="Logo">
+    <h2>注册</h2>
+
+    <!-- 用户名、密码和确认密码的输入表单 -->
+    <input type="text" id="userid" class="input-field" placeholder="学号" required>
+    <input type="text" id="username" class="input-field" placeholder="姓名" required>
+    <input type="password" id="password" class="input-field" placeholder="密码" required>
+    <input type="password" id="confirm-password" class="input-field" placeholder="确认密码" required>
+    <button id="register-btn" class="btn disabled" onclick="register()">Register</button>
+</div>
+
+<script>
+    // 检查密码是否匹配
+    function checkPassword() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const registerBtn = document.getElementById('register-btn');
+
+        if (password === confirmPassword && password.length > 0) {
+            registerBtn.classList.add('active');
+            registerBtn.classList.remove('disabled');
+        } else {
+            registerBtn.classList.remove('active');
+            registerBtn.classList.add('disabled');
+        }
+    }
+
+    // 注册功能实现
+    function register() {
+        // 获取用户输入
+        var userid = document.getElementById("userid").value;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // 构建 JSON 数据
+        var data = {
+            userid: userid,
+            username: username,
+            password: password
+        };
+
+        // 发送请求，模拟服务器返回数据
+        fetch('/api/user/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                // 判断返回的 JSON 数据
+                if (result.msg === "注册成功") {
+                    // 注册成功，跳转到 login.html
+                    window.location.href = "login.html";
+                } else {
+                    // 注册失败，弹出错误提示
+                    alert(result.msg);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("注册失败");
+            });
+    }
+
+    // 监听密码和确认密码的输入
+    document.getElementById('password').addEventListener('input', checkPassword);
+    document.getElementById('confirm-password').addEventListener('input', checkPassword);
+</script>
+
+</body>
+</html>

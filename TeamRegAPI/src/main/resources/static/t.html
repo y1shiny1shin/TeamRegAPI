@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接口功能演示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .msg {
+            margin-top: 20px;
+            color: green;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>接口功能演示</h1>
+
+    <!-- 登录接口 -->
+    <form id="loginForm">
+        <h2>登录</h2>
+        <label for="loginUserId">用户学号</label>
+        <input type="text" id="loginUserId" name="userid" placeholder="请输入用户ID">
+        <label for="loginPassword">密码</label>
+        <input type="password" id="loginPassword" name="password" placeholder="请输入密码">
+        <button type="button" onclick="login()">登录</button>
+        <p class="msg" id="loginMsg"></p>
+    </form>
+
+    <!-- 注册接口 -->
+    <form id="registerForm">
+        <h2>注册</h2>
+        <label for="registerUserId">用户学号</label>
+        <input type="text" id="registerUserId" name="userid" placeholder="请输入用户ID">
+        <label for="registerUsername">用户名</label>
+        <input type="text" id="registerUsername" name="username" placeholder="请输入用户名">
+        <label for="registerPassword">密码</label>
+        <input type="password" id="registerPassword" name="password" placeholder="请输入密码">
+        <label for="academyChoice">学院</label>
+        <select id="academyChoice" name="academy" required>
+            <option value="" disabled selected>请选择学院</option>
+            <option value="马克思主义学院">马克思主义学院</option>
+            <option value="工学院">工学院</option>
+            <option value="国际中文教育学院">国际中文教育学院</option>
+            <option value="体育学院">体育学院</option>
+            <option value="生命科学学院">生命科学学院</option>
+            <option value="化学与材料科学学院">化学与材料科学学院</option>
+            <option value="经济与管理学院">经济与管理学院</option>
+            <option value="商学院">商学院</option>
+            <option value="地理与资源科学学院">地理与资源科学学院</option>
+            <option value="服装与设计艺术学院">服装与设计艺术学院</option>
+            <option value="教育科学学院">教育科学学院</option>
+            <option value="法学院">法学院</option>
+            <option value="中华传统文化学院">中华传统文化学院</option>
+            <option value="音乐学院">音乐学院</option>
+            <option value="数学科学学院">数学科学学院</option>
+            <option value="心理学院">心理学院</option>
+            <option value="历史文化与旅游学院">历史文化与旅游学院</option>
+            <option value="影视与传媒学院">影视与传媒学院</option>
+            <option value="计算机科学学院">计算机科学学院</option>
+            <option value="美术学院•书法学院">美术学院•书法学院</option>
+            <option value="舞蹈学院">舞蹈学院</option>
+            <option value="哲学学院">哲学学院</option>
+            <option value="纪检监察学院">纪检监察学院</option>
+            <option value="物理与电子工程学院">物理与电子工程学院</option>
+            <option value="文学院">文学院</option>
+            <option value="遂宁校区（师范学院、产业学院、治理学院、文旅学院）">遂宁校区（师范学院、产业学院、治理学院、文旅学院）</option>
+            <option value="外国语学院">外国语学院</option>
+        </select>
+        <button type="button" onclick="register()">注册</button>
+        <p class="msg" id="registerMsg"></p>
+    </form>
+
+    <!-- 修改密码接口 -->
+    <form id="updatePwdForm">
+        <h2>修改密码</h2>
+        <label for="updatePwdUserId">用户学号</label>
+        <input type="text" id="updatePwdUserId" name="userid" placeholder="请输入用户ID">
+        <label for="updatePwdOldPassword">旧密码</label>
+        <input type="password" id="updatePwdOldPassword" name="password" placeholder="请输入旧密码">
+        <label for="updatePwdNewPassword">新密码</label>
+        <input type="password" id="updatePwdNewPassword" name="newpassword" placeholder="请输入新密码">
+        <button type="button" onclick="updatePwd()">修改密码</button>
+        <p class="msg" id="updatePwdMsg"></p>
+    </form>
+
+    <!-- 获取用户信息接口 -->
+    <form id="getUserInfoForm">
+        <h2>获取用户信息</h2>
+        <button type="button" onclick="getUserInfo()">获取信息</button>
+        <p class="msg" id="getUserInfoMsg"></p>
+    </form>
+</div>
+
+<script>
+    // 登录接口
+    function login() {
+        const data = {
+            userid: document.getElementById('loginUserId').value,
+            password: document.getElementById('loginPassword').value
+        };
+        fetch('/api/user/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('loginMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 注册接口
+    function register() {
+        const data = {
+            userid: document.getElementById('registerUserId').value,
+            username: document.getElementById('registerUsername').value,
+            password: document.getElementById('registerPassword').value,
+            academy: document.getElementById('academyChoice').value
+        };
+        fetch('/api/user/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('registerMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 修改密码接口
+    function updatePwd() {
+        const data = {
+            userid: document.getElementById('updatePwdUserId').value,
+            password: document.getElementById('updatePwdOldPassword').value,
+            newpassword: document.getElementById('updatePwdNewPassword').value
+        };
+        fetch('/api/user/updatepwd', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('updatePwdMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 获取用户信息接口
+    function getUserInfo() {
+        fetch('/api/user/getuserinfo')
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('getUserInfoMsg').textContent = `用户名: ${result.username}`;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+<div class="container">
+    <h1>接口功能演示</h1>
+
+    <!-- 加入平面设计赛道 -->
+    <form id="joinPmsjtraceForm">
+        <h2>加入平面设计赛道</h2>
+        <label for="joinUserId">用户ID</label>
+        <input type="text" id="joinUserId" name="userId" placeholder="请输入用户ID">
+        <label for="joinUsername">用户名</label>
+        <input type="text" id="joinUsername" name="username" placeholder="请输入用户名">
+        <label for="joinPassword">密码</label>
+        <input type="password" id="joinPassword" name="password" placeholder="请输入密码">
+        <button type="button" onclick="joinPmsjtrace()">加入</button>
+        <p class="msg" id="joinPmsjtraceMsg"></p>
+    </form>
+
+    <!-- 新建队伍 -->
+    <form id="createTeamForm">
+        <h2>新建队伍</h2>
+        <label for="createTeamName">队伍名称</label>
+        <input type="text" id="createTeamName" name="teamName" placeholder="请输入队伍名称">
+        <label for="createCaptainName">队长姓名</label>
+        <input type="text" id="createCaptainName" name="captainName" placeholder="请输入队长姓名">
+        <label for="createCaptainId">队长ID</label>
+        <input type="text" id="createCaptainId" name="captainId" placeholder="请输入队长ID">
+        <button type="button" onclick="createTeam()">创建队伍</button>
+        <p class="msg" id="createTeamMsg"></p>
+    </form>
+
+    <!-- 队伍加入赛道 -->
+    <form id="groupJoinForm">
+        <h2>队伍加入赛道</h2>
+        <label for="groupJoinTeamName">队伍名称</label>
+        <input type="text" id="groupJoinTeamName" name="teamName" placeholder="请输入队伍名称">
+        <label for="groupJoinType">赛道类型</label>
+        <select id="groupJoinType" name="groupType" required>
+            <option value="" disabled selected>请选择赛道类型</option>
+            <option value="计算机综合素质竞赛类">计算机综合素质竞赛类</option>
+            <option value="微课与课件设计类">微课与课件设计类</option>
+            <option value="程序应用设计类">程序应用设计类</option>
+            <option value="数字媒体设计类">数字媒体设计类</option>
+            <option value="算法程序设计类">算法程序设计类</option>
+        </select>
+        <label for="groupJoinCaptainId">队长ID</label>
+        <input type="text" id="groupJoinCaptainId" name="captainId" placeholder="请输入队长ID">
+        <button type="button" onclick="groupJoin()">加入赛道</button>
+        <p class="msg" id="groupJoinMsg"></p>
+    </form>
+
+    <h2>队员加入队伍</h2>
+    <form id="joinTeamForm" onsubmit="joinTeam(event)">
+        <label for="userId">用户学号:</label>
+        <input type="text" id="userId" name="userId" required>
+        <label for="teamName">队伍名称:</label>
+        <input type="text" id="teamName" name="teamName" required>
+        <button type="submit">加入队伍</button>
+    </form>
+
+    <!-- 踢出队员 -->
+    <form id="kickMemberForm">
+        <h2>踢出队员</h2>
+        <label for="kickTeamName">队伍名称</label>
+        <input type="text" id="kickTeamName" name="teamName" placeholder="请输入队伍名称">
+        <label for="kickMemberName">队员姓名</label>
+        <input type="text" id="kickMemberName" name="memberName" placeholder="请输入队员姓名">
+        <label for="kickMemberId">队员学号</label>
+        <input type="text" id="kickMemberId" name="memberId" placeholder="请输入队员ID">
+        <button type="button" onclick="kickMember()">踢出队员</button>
+        <p class="msg" id="kickMemberMsg"></p>
+    </form>
+
+    <!-- 退出队伍 -->
+    <form id="quitTeamForm">
+        <h2>退出队伍</h2>
+        <label for="quitTeamName">队伍名称</label>
+        <input type="text" id="quitTeamName" name="teamName" placeholder="请输入队伍名称">
+        <button type="button" onclick="quitTeam()">退出队伍</button>
+        <p class="msg" id="quitTeamMsg"></p>
+    </form>
+
+    <!-- 删除队伍 -->
+    <form id="destroyTeamForm">
+        <h2>删除队伍</h2>
+        <label for="destroyUserId">用户ID</label>
+        <input type="text" id="destroyUserId" name="userId" placeholder="请输入用户ID">
+        <label for="destroyTeamName">队伍名称</label>
+        <input type="text" id="destroyTeamName" name="teamName" placeholder="请输入队伍名称">
+        <label for="destroyPassword">密码</label>
+        <input type="password" id="destroyPassword" name="password" placeholder="请输入密码">
+        <button type="button" onclick="destroyTeam()">删除队伍</button>
+        <p class="msg" id="destroyTeamMsg"></p>
+    </form>
+
+
+    <!-- 退出赛道 -->
+    <form id="quitGroupForm">
+        <h2>退出赛道</h2>
+        <label for="quitGroupName">赛道名称</label>
+        <input type="text" id="quitGroupName" name="groupName" placeholder="请输入赛道名称">
+        <label for="quitTeamName2">队伍名称</label>
+        <input type="text" id="quitTeamName2" name="teamName" placeholder="请输入队伍名称">
+        <button type="button" onclick="quitGroup()">退出赛道</button>
+        <p class="msg" id="quitGroupMsg"></p>
+    </form>
+</div>
+
+<script>
+    // 加入平面设计赛道
+    function joinPmsjtrace() {
+        const data = {
+            userId: document.getElementById('joinUserId').value,
+            password: document.getElementById('joinPassword').value,
+            username: document.getElementById('joinUsername').value
+        };
+        fetch('/api/team/joinpmsjtrace', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('joinPmsjtraceMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 踢出队员
+    function kickMember() {
+        const data = {
+            teamName: document.getElementById('kickTeamName').value,
+            memberName: document.getElementById('kickMemberName').value,
+            memberId: document.getElementById('kickMemberId').value
+        };
+        fetch('/api/team/kickmember', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('kickMemberMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function joinTeam(event) {
+        event.preventDefault(); // 防止表单默认提交
+
+        const userId = document.getElementById('userId').value;
+        const teamName = document.getElementById('teamName').value;
+
+        const requestData = {
+            userId: userId,
+            teamName: teamName
+        };
+
+        fetch('/api/team/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const responseMsg = document.getElementById('responseMsg');
+                responseMsg.textContent = data.msg; // 显示接口返回的 msg 字段
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 退出队伍
+    function quitTeam() {
+        const data = {
+            teamName: document.getElementById('quitTeamName').value
+        };
+        fetch('/api/team/quitteam', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('quitTeamMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 删除队伍
+    function destroyTeam() {
+        const data = {
+            userId: document.getElementById('destroyUserId').value,
+            teamName: document.getElementById('destroyTeamName').value,
+            password: document.getElementById('destroyPassword').value
+        };
+        fetch('/api/team/destroy', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('destroyTeamMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 新建队伍
+    function createTeam() {
+        const data = {
+            teamName: document.getElementById('createTeamName').value,
+            captainName: document.getElementById('createCaptainName').value,
+            captainId: document.getElementById('createCaptainId').value
+        };
+        fetch('/api/team/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('createTeamMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 队伍加入赛道
+    function groupJoin() {
+        const data = {
+            teamName: document.getElementById('groupJoinTeamName').value,
+            groupType: document.getElementById('groupJoinType').value,
+            captainId: document.getElementById('groupJoinCaptainId').value
+        };
+        fetch('/api/team/groupjoin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('groupJoinMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 退出赛道
+    function quitGroup() {
+        const data = {
+            groupName: document.getElementById('quitGroupName').value,
+            teamName: document.getElementById('quitTeamName2').value
+        };
+        fetch('/api/team/quitgroup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('quitGroupMsg').textContent = result.msg;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+<h2>队伍信息表</h2>
+<button onclick="loadTeamData()">加载队伍数据</button>
+
+<div id="teamTableContainer"></div>
+
+<script>
+    // 加载队伍数据并生成表格
+    function loadTeamData() {
+        fetch('/api/team/select', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tableContainer = document.getElementById('teamTableContainer');
+                tableContainer.innerHTML = ''; // 清空之前的内容
+
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                // 表头
+                const headerRow = document.createElement('tr');
+                const headers = ['队伍名', '赛道1', '赛道2', '赛道3', '队员1', '队员1学号' ,'队员1学院','队员2', '队员2学号' ,'队员2学院' ,'队员3', '队员3学号' ,'队员3学院'];
+                headers.forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+
+                // 遍历每个队伍的数据并生成表格内容
+                for (const team in data) {
+                    if (data[team] && data[team][0]) {
+                        const teamData = data[team][0]; // 获取每个队伍的数据对象
+                        const dataRow = document.createElement('tr');
+                        const values = [
+                            teamData.teamName,
+                            teamData.groupType1 || '', // 赛道1
+                            teamData.groupType2 || '', // 赛道2
+                            teamData.groupType3 || '', // 赛道3
+                            teamData.memberName1 || '', // 队员1
+                            teamData.memberId1 || '', // 队员ID1
+                            teamData.academy1 || '',
+                            teamData.memberName2 || '', // 队员2
+                            teamData.memberId2 || '', // 队员ID2
+                            teamData.academy2 || '', // 队员2学院
+                            teamData.memberName3 || '', // 队员3
+                            teamData.memberId3 || '',  // 队员ID3
+                            teamData.academy3 || ''
+                        ];
+
+                        values.forEach(value => {
+                            const td = document.createElement('td');
+                            td.textContent = value || ''; // 如果字段为空，显示空白
+                            dataRow.appendChild(td);
+                        });
+                        tbody.appendChild(dataRow);
+                    }
+                }
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                tableContainer.appendChild(table); // 添加生成的表格到容器
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>

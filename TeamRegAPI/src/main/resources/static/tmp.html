@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队伍管理系统</title>
+    <link rel="stylesheet" href="tmp.css">
+</head>
+<body>
+<div class="container">
+    <h1>队伍管理系统</h1>
+    <form id="joinpmsjForm">
+        <label for="userId">用户 ID:</label>
+        <input type="text" id="userId1" name="userId"><br><br>
+        <label for="password">密码:</label>
+        <input type="password" id="password1" name="password"><br><br>
+        <label for="username">用户名:</label>
+        <input type="text" id="username1" name="username"><br><br>
+        <label for="confirmPassword">确认密码:</label>
+        <input type="password" id="confirmPassword1" name="confirmPassword"><br><br>
+        <button id="joinpmsjSubmit" class="btn">提交</button>
+    </form>
+    <form id="createTeamForm">
+        <label for="teamName">队伍名称:</label>
+        <input type="text" id="teamName1" name="teamName"><br><br>
+        <label for="captainName">队长名称:</label>
+        <input type="text" id="captainName1" name="captainName"><br><br>
+        <label for="captainId">队长 ID:</label>
+        <input type="text" id="captainId1" name="captainId"><br><br>
+        <button id="createTeamSubmit" class="btn">创建队伍</button>
+    </form>
+    <form id="quitGroupForm">
+        <label for="groupName">赛道名称:</label>
+        <input type="text" id="groupName1" name="groupName"><br><br>
+        <button id="quitGroupSubmit" class="btn">退出赛道</button>
+    </form>
+    <form id="quitTeamForm">
+        <label for="teamName">队伍名称:</label>
+        <input type="text" id="teamName2" name="teamName"><br><br>
+        <button id="quitTeamSubmit" class="btn">退出队伍</button>
+    </form>
+    <form id="joinTeamForm">
+        <label for="userId">用户 ID:</label>
+        <input type="text" id="userId2" name="userId"><br><br>
+        <label for="teamName">队伍名称:</label>
+        <input type="text" id="teamName3" name="teamName"><br><br>
+        <button id="joinTeamSubmit" class="btn">加入队伍</button>
+    </form>
+</div>
+
+<script src="tmp.js"></script>
+<script src="js/jquery.min.js"></script>
+</body>
+</html>
