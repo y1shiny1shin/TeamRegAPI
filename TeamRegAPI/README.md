@@ -28,7 +28,7 @@ NOTICE: 第一次导入项目，由于是从外网下载包，建议开梯子导
 ```
 POST
 {
-	userid: "2022110416",
+	userid: "0001",
 	password: "123456"
 }
 ```
@@ -285,9 +285,9 @@ RETURN
       "academy1": "计算机科学学院",
       "academy3": "计算机科学学院",
       "academy2": "计算机科学学院",
-      "memberId1": "2022110499",
-      "memberId2": "2022110400",
-      "memberId3": "2022110388"
+      "memberId1": "0001",
+      "memberId2": "0002",
+      "memberId3": "0003"
     }
   ],
   "team2": [null]
